@@ -1,14 +1,28 @@
 import { useState } from "react";
 
 const ContactsList = (props) => {
-  const { contacts, hideForm, setHideForm, setEditContact, setcontactToEdit } = props;
+  const {
+    contacts,
+    hideForm,
+    setHideForm,
+    setEditContact,
+    setContactToEdit,
+    contactToView,
+    setContactToView,
+  } = props;
 
   const onClickEditHandler = (contact) => {
-    console.log("in edit button handler", contact)
-    setcontactToEdit(contact)
+    console.log("in edit button handler", contact);
+    setContactToEdit(contact);
     setEditContact(true);
-  }
-  
+    setHideForm(false);
+  };
+
+  const onClickViewHandler = (contact) => {
+    setContactToView(contact);
+    setHideForm(true);
+  };
+
   return (
     <aside className="contacts-section light-shadow">
       <header>
@@ -36,21 +50,27 @@ const ContactsList = (props) => {
                   </p>
                 </div>
                 <div className="contactListItemButtons">
-                <button className="button blue">
+                  <button
+                    className="button blue"
+                    onClick={() => onClickViewHandler(contact)}
+                  >
                     View
-                </button>
-                <button className="button blue" onClick={() => onClickEditHandler(contact)}>
+                  </button>
+                  <button
+                    className="button blue"
+                    onClick={() => onClickEditHandler(contact)}
+                  >
                     Edit
-                </button>
+                  </button>
                 </div>
               </li>
               <hr></hr>
             </>
           );
         })}
-      </ul>    
+      </ul>
     </aside>
   );
-}
+};
 
 export default ContactsList;
